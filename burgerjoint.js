@@ -17,9 +17,7 @@ function unbiggie_size(combo) {
 }
 
 function is_biggie_size(combo) {
-    return 4 < combo && combo < 9
-        ? true
-        : false;
+    return 4 < combo && combo < 9;
 }
 
 // calculates combo prices for combos 1-8, returns -1 for all other values
