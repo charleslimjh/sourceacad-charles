@@ -24,7 +24,7 @@ function is_biggie_size(combo) {
 function combo_price(combo) {
     return 0 < combo && combo < 9
         ? is_biggie_size(combo)
-            ? 0.50 + ((combo-4) * 1.17)
+            ? 0.50 + (unbiggie_size(combo) * 1.17)
             : combo * 1.17
         : -1;
 }
@@ -53,6 +53,19 @@ function other_combos (order){
         : -1;
 }
 
+/* lessons learnt
+forgot about the biggie_size() and unbiggie_size() functions in combo_price()
+important for maintenance of code and modular abstraction!
 
+parameters vs arguments
+parameters are during function definition
+arguments are actual values passed down to functions
 
+alternative other_combos solution
+function other_combos (order) {
+    return order > 0
+        ? (order - last_combo(order)) / 10
+        : -1;
+}
+*/
 
