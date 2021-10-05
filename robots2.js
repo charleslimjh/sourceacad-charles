@@ -3,7 +3,7 @@
 
 // Mission 1: Getting started
 // Part 1: 
-// ev3_speak("Vimuth is the best");
+ev3_speak("Vimuth is the best");
 
 
 
@@ -16,7 +16,7 @@ function move(len_in_cm) {
 }
 
 // TEST
-// move(10);
+move(10);
 
 // Part 3:
 
@@ -28,26 +28,41 @@ function aboutturn(deg) {
 }
 
 // TEST
-// aboutturn(90);
+aboutturn(90);
 
 
 //Part 4:
 
-// const actions = list(
-//                     move(10),
-//                     // anti-clockwise
-//                     ev3_pause(200),
-//                     aboutturn(90),
-//                     ev3_pause(200),
-//                     move(5),
-//                     // clockwise
-//                     ev3_pause(200),
-//                     aboutturn(-90),
-//                     ev3_pause(200),
-//                     move(15));
+// COPY move() and aboutturn() functions here
+function move(len_in_cm) {
+    const pos = 18.6;
+    ev3_runToRelativePosition(ev3_motorB(), len_in_cm * pos, 150);
+    ev3_runToRelativePosition(ev3_motorC(), len_in_cm * pos, 150);
+    ev3_pause((math_abs(len_in_cm) * pos * 1000) / 150);
+}
+
+function aboutturn(deg) {
+    const pos = 187;
+    ev3_runToRelativePosition(ev3_motorB(), -pos * math_floor(deg / 90), 150);
+    ev3_runToRelativePosition(ev3_motorC(), pos * math_floor(deg / 90), 150);
+    ev3_pause(pos * math_floor(math_abs(deg) / 90) * 1000 / 150);
+}
+
+const actions = list(
+                    move(10),
+                    // anti-clockwise
+                    ev3_pause(200),
+                    aboutturn(90),
+                    ev3_pause(200),
+                    move(5),
+                    // clockwise
+                    ev3_pause(200),
+                    aboutturn(-90),
+                    ev3_pause(200),
+                    move(15));
 
 // TEST
-// for_each(x=>x actions);
+for_each(x=>x, actions);
 
 //Mission 2: thing
 
@@ -55,7 +70,7 @@ function aboutturn(deg) {
 function get_dist() {
     const is_true = true;
     if (is_true) {
-        return display(ev3_ultrasonicSensorDistance(ev3_ultrasonicSensor()) / 10);
+        display(ev3_ultrasonicSensorDistance(ev3_ultrasonicSensor()) / 10);
         ev3_pause(1000);
         get_dist();
     } else {
@@ -64,9 +79,13 @@ function get_dist() {
 }
 
 // TEST
-// get_dist();
+get_dist();
 
 // Part 2:
+function get_dist() {
+    return display(ev3_ultrasonicSensorDistance(ev3_ultrasonicSensor()) / 10);
+}
+
 function checker() {
     ev3_motorSetSpeed(ev3_motorB(), 150);
     ev3_motorSetSpeed(ev3_motorC(), 150);
@@ -85,9 +104,14 @@ function checker() {
     }
 }
 
+// TEST
 checker();
 
-// Part 3:
+// Part 3: TBC
+
+// function get_dist() {
+//     return display(ev3_ultrasonicSensorDistance(ev3_ultrasonicSensor()) / 10);
+// }
 
 // function dodge() {
 //     ev3_motorSetSpeed(ev3_motorB(), 150);
@@ -98,7 +122,7 @@ checker();
 //
 //         if (get_dist() <= 15) {
 //         let angle = 0;
-//         if (math_floor(math_random * 2) == 0) {
+//         if (math_floor(math_random * 2) === 0) {
 //              angle = 90;
 //         } else {
 //              angle = -90;
@@ -106,8 +130,8 @@ checker();
 //         
 //         ev3_motorStart(ev3_motorB());
 //         ev3_motorStart(ev3_motorC());
-//         ev3_pause(2000);
-//         aboutturn(-90);
+//         ev3_pause(5000);
+//         aboutturn(-1 * angle);
 //         dodge();
 //     } else {
 //         ev3_motorStart(ev3_motorB());
@@ -115,8 +139,6 @@ checker();
 //         dodge();
 //     }
 // }
-
-// dodge();
 
 // function dodge() {
 //     ev3_motorSetSpeed(ev3_motorB(), 150);
@@ -128,26 +150,26 @@ checker();
 //             ev3_motorStop(ev3_motorC());
 //             ev3_pause(200);
 //             aboutturn(angle(direction === "acw"));
-            
+//            
 //         } else {
 //             ev3_motorStart(ev3_motorB());
 //             ev3_motorStart(ev3_motorC());
 //             after(direction);
 //         }
 //     }
-    
+//    
 //     if (get_dist() <= 15) {
 //         ev3_motorStop(ev3_motorB());
 //         ev3_motorStop(ev3_motorC());
 //         ev3_pause(200);
-        
+//
 //         let angle = 0;
 //         if (math_floor(2 * math_random()) === 1) {
 //             angle = 90;
 //         } else {
 //             angle = -90;
 //         }
-
+//
 //         aboutturn(angle);
 //         ev3_motorStart(ev3_motorB());
 //         ev3_motorStart(ev3_motorC());
@@ -160,5 +182,7 @@ checker();
 //         dodge();
 //     }
 // }
+
+// dodge();
 
 //Mission 3: more things
